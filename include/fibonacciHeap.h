@@ -1,6 +1,8 @@
 #ifndef FIBONACCI_HEAP_H_
 #define FIBONACCI_HEAP_H_
 
+#include <cstddef>
+
 template <class V>
 class FibonacciHeap;
 
@@ -25,6 +27,8 @@ public:
     V getValue() { return value; }
     bool isMarked() { return marked; }
 
+    int vertexID = 0;
+
     bool hasChildren() { return child; }
     bool hasParent() { return parent; }
 };
@@ -47,9 +51,10 @@ public:
             _deleteAll(heap);
         }
     }
-    node<V> *insert(V value)
+    node<V> *insert(int vID, V value)
     {
         node<V> *ret = _singleton(value);
+        ret->vertexID = vID;
         heap = _merge(heap, ret);
         return ret;
     }
@@ -69,11 +74,11 @@ public:
         return heap->value;
     }
 
-    V removeMinimum()
+    int extractMin()
     {
         node<V> *old = heap;
-        heap = _removeMinimum(heap);
-        V ret = old->value;
+        heap = _extractMin(heap);
+        int ret = old->vertexID;
         delete old;
         return ret;
     }
@@ -163,7 +168,7 @@ private:
         } while (c != n);
     }
 
-    node<V> *_removeMinimum(node<V> *n)
+    node<V> *_extractMin(node<V> *n)
     {
         _unMarkAndUnParentAll(n->child);
         if (n->next == n)
@@ -254,6 +259,11 @@ private:
         if (n->value < value)
             return heap;
         n->value = value;
+        if (n->parent == NULL)
+        {
+            heap = value < heap->value ? n : heap;
+            return heap;
+        }
         if (n->value < n->parent->value)
         {
             heap = _cut(heap, n);
@@ -272,16 +282,16 @@ private:
         return heap;
     }
 
-    node<V> *_find(node<V> *heap, V value)
+    node<V> *_find(node<V> *heap, int vID)
     {
         node<V> *n = heap;
         if (n == NULL)
             return NULL;
         do
         {
-            if (n->value == value)
+            if (n->vertexID == vID)
                 return n;
-            node<V> *ret = _find(n->child, value);
+            node<V> *ret = _find(n->child, vID);
             if (ret)
                 return ret;
             n = n->next;

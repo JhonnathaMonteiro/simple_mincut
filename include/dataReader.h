@@ -10,8 +10,8 @@ template <class T>
 class dataReader
 {
 private:
-   int const vertex;
-   int const labels;
+   int vertex;
+   int labels;
    int const default_value = -1;
    T **matrix;
 

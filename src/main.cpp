@@ -1,21 +1,18 @@
 #include <iostream>
 
 #include "dataReader.h"
+#include "minCutPhase.h"
+#include "minCut.h"
+#include "fibonacciHeap.h"
 
 int main(int argc, char **argv)
 {
+
     dataReader<double> data(argv[1]);
     double **C = data.getMatrix();
 
-    // readInstance(argv[1]);
-    std::cout << data.getVertex() << std::endl;
+    int dim = data.getVertex();
+    int a = 1; // a = 2
 
-    for (int i = 0; i < data.getVertex(); i++)
-    {
-        for (int j = 0; j < data.getVertex(); j++)
-        {
-            std::cout << C[i][j] << " ";
-        }
-        std::cout << std::endl;
-    }
+    cut min_cut = minCut(C, a, dim);
 }
