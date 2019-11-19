@@ -12,7 +12,7 @@ int main(int argc, char **argv)
     double **C = data.getMatrix();
 
     int dim = data.getVertex();
-    int a = 1; // a = 2
+    int a = 1;
 
-    cut min_cut = minCut(C, a, dim);
+    Cut min_cut = minCut(C, a, dim);
 }

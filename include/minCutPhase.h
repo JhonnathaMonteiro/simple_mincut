@@ -3,14 +3,10 @@
 
 #include <vector>
 #include <algorithm> // erase
+
 #include "fibonacciHeap.h"
+#include "cut.h"
 
-typedef struct Cut
-{
-    std::vector<std::pair<int, int>> edges;
-    double value;
-} cut;
-
-cut minCutPhase(double **, int, int, std::vector<int> &);
+Cut minCutPhase(double **, int, int, std::vector<int> &, vector_of_pairs &);
 
 #endif // MIN_CUT_PHASE_H_
