@@ -35,13 +35,14 @@ Cut minCutPhase(double **C,
 {
 
     Cut cut_of_phase;
-    int s, t;
+    int s, t, p;
+ 
     std::vector<int> A, Vcopy;
     A.push_back(a);
 
     // construindo a fibonacci heap
     FibonacciHeap<double> fbHeap;
-    for (auto &vi : V)
+    for (auto &vi : Vi)
     {
         fbHeap.insert(vi, -C[a][vi]); // -C para ExtractMin -> ExtractMax
         Vcopy.push_back(vi);
