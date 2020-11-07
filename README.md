@@ -5,6 +5,4 @@ Update it to RUST
 /teste 1
 /teste 3
 ff
-as
-r
-ggggg-gqweaasd
+sdasdf
